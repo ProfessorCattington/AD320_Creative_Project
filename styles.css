@@ -1,9 +1,8 @@
 /*
-  *** TODO: fill in your header ***
-  INSERT YOUR NAME HERE
-  INSERT THE CURRENT DATE HERE
+Michael Lezon
+10/10/2023
 
-  WRITE A 2-3 SENTENCE FILE DESCRIPTION HERE
+CSS style file for both about.html and keyboards.html. Once the project has branched out into more files I will split this into more CSS files
 */
 
 /*
@@ -14,9 +13,13 @@ body {
   font-family: "Helvetica", sans-serif;
 }
 
-img{
+section img{
   width: 40%;
   height: 40%;
+}
+article img{
+  width: 100%;
+  height: 100%;
 }
 .intro{
   display: flex;
