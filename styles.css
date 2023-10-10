@@ -10,9 +10,29 @@
   Note: This body rule set is to get you started
 */
 body {
-  background-color: rgb(137, 182, 154);
+  background-color: rgb(110, 127, 193);
   font-family: "Helvetica", sans-serif;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+}
+
+img{
+  width: 40%;
+  height: 40%;
+}
+.intro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+aside {
+  display: block;
+  width: 200px;
+  height: 1000px;
+  margin-right: 5%;
+  float: left;
+  background-color: rgb(34, 108, 97);
+}
+section{
+  margin-left: 10%;
+  margin-top: 5%;
 }
