@@ -39,3 +39,12 @@ section{
   margin-left: 10%;
   margin-top: 5%;
 }
+.piano{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.piano img{
+  width: 40%;
+  height: 40%;
+}
