@@ -6,8 +6,9 @@
  * This java script file is attached to index.html. It helps create the
  * functions that make the website interactive and able to play the piano.
  */
+"use strict"
 (function() {
- 
+
   //constants
   const KEY_INDEX = 10;
   const KEY_FOLDER = "./sound_files/";
