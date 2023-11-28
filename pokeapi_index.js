@@ -1,22 +1,10 @@
 /**
- * A webpage for fetching cute pet photos. Puppies or kitties
- * will be populated on the page after the user selects their desired
- * pet type.
- * 
- * Important information to complete this assignment:
- * - Service URL: https://courses.cs.washington.edu/courses/cse154/webservices/pets/ajaxpets.php
- * - Query Parameters (required): ?animal=<value>
- *   - Details: animal is the name of the query parameter you need to assign
- *              a value to. This API recognizes either a value of puppy or kitty.
- * 
- * Example Request (with puppy as the value):
- * https://courses.cs.washington.edu/courses/cse154/webservices/pets/ajaxpets.php?animal=puppy
+ * A webpage for fetching pokemon and trainer data using pokeapi ( https://pokeapi.co/api/v2/pokemon/ ) and REST API to express_index.js
  */
 
 "use strict";
 (function() {
 
-  const buttonIndex = 6;
   window.addEventListener("load", init);
 
   function init() {
@@ -30,16 +18,32 @@
    */
     function setupPage(){
 
-      let pokedex = id("Pokedex");
-      let button = pokedex.children[buttonIndex];
-      button.addEventListener("click", searchPokemons);
+      let pSearchButton = id("pSearch");
+      pSearchButton.addEventListener("click", searchPokemons);
+
+      let tViewButton = id("tView");
+      tViewButton.addEventListener("click", searchTrainers);
+
+      let bViewButton = id("bView");
+      bViewButton.addEventListener("click", searchBadges);
     }
 
     function getSearchField(){
 
-      let searchField = document.getElementById("pname");
-
+      let searchField = id("pname");
       return searchField;
+    }
+
+    function getTrainerSelection(){
+
+      let trainerDropDown = id("trainers");
+      return trainerDropDown.value;
+    }
+
+    function getBadgeSelection(){
+
+      let badgeDropDown = id("badges");
+      return badgeDropDown.value;
     }
 
     /**
@@ -53,9 +57,26 @@
       clearField(); //clear out the search field
     }
 
+    function searchTrainers(){
+
+      let trainerName = getTrainerSelection();
+      getTrainerInfo(trainerName);
+    }
+
+    function searchBadges(){
+
+      let badgeName = getBadgeSelection();
+      getBadgeInfo(badgeName);
+    }
+
     function clearField(){
       let searchField = getSearchField();
       searchField.value = "";
+    }
+
+    function clearPokemonInfo(){
+      let pokemonData = document.getElementsByClassName("pokemon")[0];
+      pokemonData.innerHTML = "";
     }
 
     /**
@@ -80,12 +101,37 @@
 
     }
 
+    function getTrainerInfo(trainerName){
+
+      let requestString = "http://localhost:8000/Trainers/" + trainerName;
+
+      fetch(requestString)
+      .then(statusCheck)
+      .then(resp => resp.json())
+      .then(formatTrainerInfo)
+      .catch(showError);
+    }
+
+    function getBadgeInfo(badgeName){
+
+      let requestString = "http://localhost:8000/Badges/" + badgeName;
+
+      fetch(requestString)
+      .then(statusCheck)
+      .then(resp => resp.json())
+      .then(formatBadgeInfo)
+      .catch(showError);
+    }
+
   /**
    * Returns the element that has the ID attribute with the specified value.
    * @param pokeResponse the text response from the server
    * @return none
    */
     function formatBasicInfo(pokeResponse) {
+
+      //blow away older pokemon data if it's there
+      clearPokemonInfo();
 
       //strip out the data we are interested in from the JSON 
       let pokemonName = pokeResponse.name;
@@ -113,11 +159,9 @@
       //let pokemonData = document.createElement("div");
       //pokemonData.classList.add("pokemon");
       let pokemonData = document.getElementsByClassName("pokemon")[0];
-      pokemonData.innerHTML = "";
       body.appendChild(pokemonData);
 
       //image
-      
       let imageTag = document.createElement("img");
       imageTag.src = imagePath;
       pokemonData.appendChild(imageTag);
@@ -140,6 +184,109 @@
       pokemonData.appendChild(typeHeader);
 
       return pokeResponse.id;
+    }
+
+    function formatTrainerInfo(trainerResponse){
+
+      //blow away older pokemon data if it's there
+      clearPokemonInfo();
+
+      //strip out the data we are interested in from the JSON 
+      let trainerName = trainerResponse.Name;
+      let trainerRoster = trainerResponse.Roster;
+      let trainerInfo = trainerResponse.Info;
+  
+      let imagePath = "trainer_images/" + trainerName + ".png";
+      
+      //make some HTML tags
+      let body = document.body;
+      let pokemonData = document.getElementsByClassName("pokemon")[0];
+      body.appendChild(pokemonData);
+
+      //image
+      let imageTag = document.createElement("img");
+      imageTag.classList.add("trainerImage");
+      imageTag.src = imagePath;
+      pokemonData.appendChild(imageTag);
+
+      //name
+      let nameHeader = document.createElement("h2");
+      let nameText = document.createElement("u");
+      nameText.innerText = trainerName;
+      pokemonData.appendChild(nameHeader);
+      nameHeader.appendChild(nameText);
+
+      //roster
+      let pokemonNames = Object.keys(trainerRoster);
+
+      let rosterHeader = document.createElement("h3");
+      let rosterText = document.createElement("u");
+      rosterText.innerText = "Roster: ";
+
+      rosterHeader.appendChild(rosterText);
+      pokemonData.appendChild(rosterHeader);
+
+      for (let pokemonName of pokemonNames){
+        let rosterMember = document.createElement("p");
+        let pokemonId = trainerRoster[pokemonName];
+        rosterMember.innerText = "# " + pokemonId + " : " + pokemonName;
+        pokemonData.appendChild(rosterMember);
+      }
+
+      //trainer info
+      let infoHeader = document.createElement("h3");
+      infoHeader.innerText = "Info: " + trainerInfo;
+      pokemonData.appendChild(infoHeader);
+    }
+
+    function formatBadgeInfo(badgeResponse){
+
+      //blow away older pokemon data if it's there
+      clearPokemonInfo();
+
+      //strip out the data we are interested in from the JSON 
+      let badgeName = badgeResponse['Badge Name'];
+      let gymName = badgeResponse['Gym Name'];
+      let gymLeaderName = badgeResponse['Leader Name'];
+      let gymType = badgeResponse['Type'];
+  
+      let imagePath = "badge_images/" + getBadgeSelection() + ".png";
+      
+      //make some HTML tags
+      let body = document.body;
+      let pokemonData = document.getElementsByClassName("pokemon")[0];
+      body.appendChild(pokemonData);
+
+      //image
+      let imageTag = document.createElement("img");
+      imageTag.classList.add("badgeImage");
+      imageTag.src = imagePath;
+      pokemonData.appendChild(imageTag);
+
+      // badge name
+      let nameHeader = document.createElement("h2");
+      let nameText = document.createElement("u");
+      nameText.innerText = badgeName;
+      pokemonData.appendChild(nameHeader);
+      nameHeader.appendChild(nameText);
+
+      //gym name
+      let gymHeader = document.createElement("h3");
+      let gymText = document.createElement("u");
+      gymText.innerText = "Gym Name: " + gymName;
+
+      gymHeader.appendChild(gymText);
+      pokemonData.appendChild(gymHeader);
+
+      //leader name
+      let leaderHeader = document.createElement("h3");
+      leaderHeader.innerText = "Leader Name: " + gymLeaderName;
+      pokemonData.appendChild(leaderHeader);
+
+      //gym type
+      let typeHeader = document.createElement("h3");
+      typeHeader.innerText = "Gym Type: " + gymType;
+      pokemonData.appendChild(typeHeader);
     }
 
     function getSpeciesInfo(idNumber){
@@ -168,9 +315,9 @@
    * @return nothing
    */
   function showError(error) {
-    console.log(error)
+    clearPokemonInfo();
     let pokemonData = document.getElementsByClassName("pokemon")[0];
-    let errorText = "I think you spelled the name wrong or put in a bad number";
+    let errorText = "Error: Bad name/number. Check spelling or ID on your selection.";
 
     let errorHeader = document.createElement("h3");
     errorHeader.innerText = errorText;

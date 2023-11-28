@@ -48,3 +48,27 @@ section{
   width: 40%;
   height: 40%;
 }
+
+.badgetImage{
+
+  width: 100px;
+  height: 100px;
+}
+
+.trainerImage{
+  width: 150px;
+  height: 350px;
+}
+select#trainers {
+  position: relative;
+  display: inline-block;
+}
+
+option {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+  background-color: #49FFF2;
+  border: 1px solid #cccccc;
+}

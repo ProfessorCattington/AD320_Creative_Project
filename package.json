@@ -1,0 +1,15 @@
+{
+  "name": "ad320_cp1",
+  "version": "1.0.0",
+  "description": "For your first Creative Project, you will use what we're learning about HTML and CSS to make a simple website with at least two HTML pages linked to one shared CSS file.",
+  "main": "express_index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
