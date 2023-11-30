@@ -11,6 +11,14 @@
     setupPage();
   }
 
+  const BADGE_INFO = {
+    "Name" : 0,
+    "Gym" : 1,
+    "Leader" : 2,
+    "Type" : 3,
+    "ImageRef" : 4
+}
+
   /**
    * Sets up the page with listeners and initializes global variables
    * @param nothing
@@ -240,15 +248,16 @@
 
     function formatBadgeInfo(badgeResponse){
 
+      console.log(badgeResponse)
       //blow away older pokemon data if it's there
       clearPokemonInfo();
 
       //strip out the data we are interested in from the JSON 
-      let badgeName = badgeResponse['Badge Name'];
-      let gymName = badgeResponse['Gym Name'];
-      let gymLeaderName = badgeResponse['Leader Name'];
-      let gymType = badgeResponse['Type'];
-      let badgeImage = badgeResponse['ImageRef'];
+      let badgeName = badgeResponse[BADGE_INFO['Name']];
+      let gymName = badgeResponse[BADGE_INFO['Gym']];
+      let gymLeaderName = badgeResponse[BADGE_INFO['Leader']];
+      let gymType = badgeResponse[BADGE_INFO['Type']];
+      let badgeImage = badgeResponse[BADGE_INFO['ImageRef']];
       
       //make some HTML tags
       let body = document.body;
