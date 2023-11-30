@@ -65,34 +65,34 @@ const TRAINER_INFO = [
 ];
 
 const BADGE_INFO = [
-    {
-        'Badge Name' : 'Boulder Badge',
-        'Gym Name': 'Pewter City',
-        'Leader Name': 'Brock',
-        'Type' : 'Rock',
-        'ImageRef' : "https://archives.bulbagarden.net/media/upload/d/dd/Boulder_Badge.png"
-    },
-    {
-        'Badge Name' : 'Cascade Badge',
-        'Gym Name': 'Cerulean City',
-        'Leader Name': 'Misty',
-        'Type' : 'Water',
-        'ImageRef' : "https://archives.bulbagarden.net/media/upload/9/9c/Cascade_Badge.png"
-    },
-    {
-        'Badge Name' : 'Thunder Badge',
-        'Gym Name': 'Vermillian City',
-        'Leader Name': 'Surge',
-        'Type' : 'Electric',
-        'ImageRef' : "https://archives.bulbagarden.net/media/upload/a/a6/Thunder_Badge.png"
-    },
-    {
-        'Badge Name' : 'Rainbow Badge',
-        'Gym Name': 'Celadon City',
-        'Leader Name': 'Erika',
-        'Type' : 'Grass',
-        'ImageRef' : "https://archives.bulbagarden.net/media/upload/b/b5/Rainbow_Badge.png"
-    },
+    [
+        'Boulder Badge', 
+        'Pewter City', 
+        'Brock' ,
+        'Rock', 
+        "https://archives.bulbagarden.net/media/upload/d/dd/Boulder_Badge.png"
+    ],
+    [
+        'Cascade Badge',
+        'Cerulean City',
+        'Misty',
+        'Water',
+        "https://archives.bulbagarden.net/media/upload/9/9c/Cascade_Badge.png"
+    ],
+    [
+        'Thunder Badge',
+        'Vermillian City',
+        'Surge',
+        'Electric',
+        "https://archives.bulbagarden.net/media/upload/a/a6/Thunder_Badge.png"
+    ],
+    [
+        'Rainbow Badge',
+        'Celadon City',
+        'Erika',
+        'Grass',
+        "https://archives.bulbagarden.net/media/upload/b/b5/Rainbow_Badge.png"
+    ]
 ];
 
 app.use(express.json());
@@ -124,7 +124,7 @@ function getBadgeInfo(req,res){
     }
     else{
         let badgeInfo = BADGE_INFO[BADGES[badgeName]];
-        res.json(badgeInfo);
+        res.type("text").send(badgeInfo);
     }
 }
 
