@@ -315,12 +315,17 @@
   function showError(error) {
     clearPokemonInfo();
     let pokemonData = document.getElementsByClassName("pokemon")[0];
-    
-    let errorText = "Error: Bad name/number. Check spelling or ID on your selection.";
-
+    let errorText = "";
+    //handle the super generic error message that comes back from the pokemon api
+    if(error.message == "Not Found"){
+      errorText = "Error: Bad name/number. Check spelling or ID on your selection."
+    }
+    else{
+      errorText = error.message; //extract the text from the json
+    }
     let errorHeader = document.createElement("h3");
     errorHeader.innerText = errorText;
-    pokemonData.appendChild(error);
+    pokemonData.appendChild(errorHeader);
   }
   /* ------------------------------ Helper Functions  ------------------------------ */
 

@@ -1,0 +1,50 @@
+<!--
+  ***
+  Michael Lezon
+  11/06/2023
+
+  A site for viewing pokemon and trainer roster data
+  ***
+-->
+<html lang="en">
+<title>Find a Pokemon!</title>
+
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="pokeapi_index.js"></script>
+    <title>CP3</title>
+  </head>
+
+  <body>
+    <div id="Pokedex">
+        <h1>Pokedex</h1>
+        <h2>Search the pokedex to learn more about a Pokemon or Trainer!</h2>
+        <a href="about.html">Go back.</a><br>
+        <label for="pname">Pokemon name or number:</label><br>
+        <input type="text" id="pname" />
+        <input type="submit" value="Search" id="pSearch"/>
+    </div>
+    <label for="trainers">View a trainer's roster:</label>
+      <select name="trainers" id="trainers">
+        <option value="Gary" selected>Gary</option>
+        <option value="Red">Red</option>
+        <option value="Brock">Brock</option>
+        <option value="Misty">Misty</option>
+        <option value="Pikachu">Pikachu (Error)</option>
+      </select>
+      <input type="submit" value="View" id="tView"/><br>
+
+      <label for="badges">View badge info:</label>
+      <select name="badges" id="badges">
+        <option value="Boulder" selected>Boulder</option>
+        <option value="Cascade">Cascade</option>
+        <option value="Thunder">Thunder</option>
+        <option value="Rainbow">Rainbow</option>
+        <option value="Candy">Candy (Error)</option>
+      </select>
+      <input type="submit" value="View" id="bView"/>
+    <div class="pokemon"></div>
+  </body>
+  
+</html>
