@@ -28,6 +28,7 @@ const TRAINER_INFO = [
             'Venusaur': 3
             },
         'Info': "Gary is a Pokémon Researcher from Pallet Town and grandson of Professor Oak.",
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/7/75/Gary_Oak_JN.png"
     },
     {
         'Name': "Red",
@@ -40,6 +41,7 @@ const TRAINER_INFO = [
             'Lapras': 131
             },
         'Info': "Red is known throughout the Pokémon world as the Champion from Pallet Town, as well as a living legend for his defeat of Team Rocket in Kanto during his quest.",
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/5/53/Red_Green_Red.png"
     },
     {
         'Name': "Misty",
@@ -49,6 +51,7 @@ const TRAINER_INFO = [
             'Vaporeon' : 134,
             },
         'Info': "Misty is the Gym Leader of Cerulean City's Gym, known officially as the Cerulean Gym. She gives the Cascade Badge to Trainers who defeat her in battle. She specializes in Water-type Pokémon. ",
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/d/db/Red_Blue_Misty.png"
     },
     {
         'Name': "Brock",
@@ -57,6 +60,7 @@ const TRAINER_INFO = [
             'Tyranitar' : 248,
             },
         'Info': "Brock is the Gym Leader of Pewter City's Gym, known officially as the Pewter Gym. He gives the Boulder Badge to Trainers who defeat him in battle. He specializes in Rock-type Pokémon. ",
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/a/a9/RB_Brock.png"
     }
 ];
 
@@ -66,24 +70,28 @@ const BADGE_INFO = [
         'Gym Name': 'Pewter City',
         'Leader Name': 'Brock',
         'Type' : 'Rock',
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/d/dd/Boulder_Badge.png"
     },
     {
         'Badge Name' : 'Cascade Badge',
         'Gym Name': 'Cerulean City',
         'Leader Name': 'Misty',
         'Type' : 'Water',
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/9/9c/Cascade_Badge.png"
     },
     {
         'Badge Name' : 'Thunder Badge',
         'Gym Name': 'Vermillian City',
         'Leader Name': 'Surge',
         'Type' : 'Electric',
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/a/a6/Thunder_Badge.png"
     },
     {
         'Badge Name' : 'Rainbow Badge',
         'Gym Name': 'Celadon City',
         'Leader Name': 'Erika',
         'Type' : 'Grass',
+        'ImageRef' : "https://archives.bulbagarden.net/media/upload/b/b5/Rainbow_Badge.png"
     },
 ];
 
@@ -101,7 +109,7 @@ function getTrainerInfo(req, res){
 
     let trainerName = req.params.name;
     if (!(trainerName in TRAINERS)) {
-        res.status(400).json({ error: "No trainer info available for that trainer" });
+        res.status(400).json({ "message" : "No trainer info available for that trainer" });
     }
     else{
         let trainerInfo = TRAINER_INFO[TRAINERS[trainerName]];
@@ -112,7 +120,7 @@ function getBadgeInfo(req,res){
 
     let badgeName = req.params.name;
     if (!(badgeName in BADGES)) {
-        res.status(400).json({ error: "No info available for that badge!" });
+        res.status(400).json({ "message" : "No info available for that badge!" });
     }
     else{
         let badgeInfo = BADGE_INFO[BADGES[badgeName]];
